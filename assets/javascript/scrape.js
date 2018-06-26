@@ -1,5 +1,5 @@
 
-var topics =['dog','cat','sugar glider', 'giraffe'];
+var topics =['dog','cat','bunny', 'giraffe'];
 
 function renderBtns() {
     $('#animalButtons').empty();

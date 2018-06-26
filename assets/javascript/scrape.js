@@ -6,7 +6,7 @@ function renderBtns() {
 
     for (var i=0;i<topics.length;i++) {
         var a=$('<button>');
-        a.addClass('btn btn-primary');
+        a.addClass('btn btn-primary animalBtn');
         a.attr('data-name', topics[i]);
         a.text(topics[i]);
         $('#animalButtons').append(a);
@@ -22,7 +22,7 @@ $('#addAnimal').on('click', function() {
 
 });
 
-$(document).on('click','.btn', function () {
+$(document).on('click','.animalBtn', function () {
     console.log('yo');
     var animal = $(this).attr('data-name')
     console.log(animal);
@@ -49,13 +49,15 @@ $(document).on('click','.btn', function () {
             animalImg.attr('data-animate',results[i].images.fixed_height.url)
             animalImg.attr('data-state','still');
             animalImg.attr('class','gif');
-            var dlName = results[i].title.replace(/\s+/g, '');
-            var a = $('<a href=\''+animalImg.attr('data-animate')+'\' download=\''+dlName+'\' ><button>Download!</button></a>');
+            //code below was intended to download gifs but seems to just break things a nd link to the gif
+            
+            //var dlName = results[i].title.replace(/\s+/g, '');
+            //var a = $('<a href=\''+results[i].images.original.url+'\' download=\''+dlName+'\' ><button>Download!</button></a>');
             //animalImg.attr('alt')
             
             animalDiv.append(animalImg);
             animalDiv.append(p);
-            animalDiv.append(a);
+            //animalDiv.append(a);
             $('#animal').prepend(animalDiv);
 
         }

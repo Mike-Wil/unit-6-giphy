@@ -1,5 +1,7 @@
 
 var topics =['dog','cat','bunny', 'giraffe'];
+var favArray=[];
+//=localStorage.getItem("favs");
 
 function renderBtns() {
     $('#animalButtons').empty();
@@ -19,10 +21,11 @@ $('#addAnimal').on('click', function() {
     topics.push(topic);
 
     renderBtns();
-
+    $("#animal-input").val("");
 });
 
 $(document).on('click','.animalBtn', function () {
+    $('#animal').empty();
     console.log('yo');
     var animal = $(this).attr('data-name')
     console.log(animal);
@@ -39,16 +42,26 @@ $(document).on('click','.animalBtn', function () {
         
         for (var i=0; i<results.length;i++) {
             var animalDiv = $('<div>');
+            animalDiv.attr('class','gifDivs');
             var p = $('<p>');
-            
-            p.text('Rating: '+results[i].rating);
+            p.append( "Title: " + results[i].title.toUpperCase() + "<br>" + "Rating: " + results[i].rating.toUpperCase());
+            //p.text('Rating: '+results[i].rating);
             var animalImg = $('<img>');
+            var attrObj = {'data-still':results[i].images.fixed_height_still.url,
+            'src': results[i].images.fixed_height_still.url,
+            'data-animate':results[i].images.fixed_height.url,
+            'data-state':'still',
+            'class': 'gif'}
+            animalImg.attr(attrObj);
             
-            animalImg.attr('data-still',results[i].images.fixed_height_still.url)
-            animalImg.attr('src', animalImg.attr('data-still'));
-            animalImg.attr('data-animate',results[i].images.fixed_height.url)
-            animalImg.attr('data-state','still');
-            animalImg.attr('class','gif');
+            //was working on favorite button
+            // var favBtn = $('<button>');
+            // favBtn.attr('class','btn favBtn');
+            // favBtn.attr('data-local', attrObj);
+            // favBtn.attr('descriptors', "Title: " + results[i].title.toUpperCase() + "<br>" + "Rating: " + results[i].rating.toUpperCase());
+            // favBtn.text('Fav');
+            // favBtn.attr('nextSrc', )
+            // console.log(animalImg)
             //code below was intended to download gifs but seems to just break things a nd link to the gif
             
             //var dlName = results[i].title.replace(/\s+/g, '');
@@ -57,12 +70,14 @@ $(document).on('click','.animalBtn', function () {
             
             animalDiv.append(animalImg);
             animalDiv.append(p);
+            //animalDiv.append(favBtn);
             //animalDiv.append(a);
-            $('#animal').prepend(animalDiv);
+            $('#animal').append(animalDiv);
 
         }
 
     });
+    
 });
 
 $(document).on('click', '.gif', function () {
@@ -81,3 +96,37 @@ $(document).on('click', '.gif', function () {
 
 
 });
+// $(document).on('click', '#favorites', function () {
+//     favArray=localStorage.getItem("favs");
+//     console.log(favArray, 'y');
+//     for (var i=0; i<favArray;i++) {
+//         var animalDiv = $('<div>');
+//         //var p = $('<p>');
+        
+//         //p.text(favArray[i]);
+//         var animalImg = $('<img>');
+        
+//         animalImg.attr(favArray[i])
+//         //code below was intended to download gifs but seems to just break things a nd link to the gif
+        
+//         //var dlName = results[i].title.replace(/\s+/g, '');
+//         //var a = $('<a href=\''+results[i].images.original.url+'\' download=\''+dlName+'\' ><button>Download!</button></a>');
+//         //animalImg.attr('alt')
+        
+//         animalDiv.append(animalImg);
+//         //animalDiv.append(p);
+//         //animalDiv.append(a);
+//         $('#animal').append(animalDiv);
+
+//     }
+
+// });
+
+// $(document).on('click', '.favBtn', function () {
+//     console.log($(this).attr('data-local'));
+//     favArray.push($(this).attr('descriptors'));
+//     //localStorage.setItem("favs", favArray);
+
+
+// });
+
